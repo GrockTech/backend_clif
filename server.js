@@ -60,7 +60,7 @@ import mongoose from "mongoose";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
 app.use(express.json());
 
 // MongoDB connection
@@ -81,6 +81,15 @@ mongoose.connection.on("connected", () => {
   console.log("MongoDB connected successfully");
 });
 
+app.use(cors({
+  origin: [
+    "https://cliffpalmgroup.org",       // your primary domain
+    "https://palmcliffgroup.netlify.app" 
+
+  ] , // your Netlify domain
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}))
 // Health check
 app.get("/", (req, res) => {
   res.send("Backend is running 🚀");
