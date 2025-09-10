@@ -81,15 +81,28 @@ mongoose.connection.on("connected", () => {
   console.log("MongoDB connected successfully");
 });
 
-app.use(cors({
-  origin: [
-    "https://cliffpalmgroup.org",       // your primary domain
-    "https://palmcliffgroup.netlify.app" 
+// app.use(cors({
+//   origin: [
+//     "https://cliffpalmgroup.org",       // your primary domain
+//     "https://palmcliffgroup.netlify.app" 
 
-  ] , // your Netlify domain
+//   ] , // your Netlify domain
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+//   credentials: true
+// }))
+// ✅ Allow your frontend domain
+app.use(cors({
+  origin: "https://www.cliffpalmgroup.com", // your Netlify domain
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
-}))
+}));
+
+// If you also want localhost testing:
+app.use(cors({
+  origin: ["http://localhost:3000", "https://www.cliffpalmgroup.com"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 // Health check
 app.get("/", (req, res) => {
   res.send("Backend is running 🚀");
