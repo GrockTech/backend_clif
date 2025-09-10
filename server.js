@@ -89,6 +89,20 @@ app.get("/", (req, res) => {
 // API routes
 app.use("/api", Shipform);
 
+app.use("/api", Shipform);
+app.post("/api/login", (req, res) => {
+  const { email, password } = req.body;
+
+  if (
+    email === process.env.ADMIN_EMAIL &&
+    password === process.env.ADMIN_PASSWORD
+  ) {
+    return res.json({ success: true, token: "some-jwt-or-session" });
+  } else {
+    return res.status(401).json({ success: false, message: "Invalid credentials" });
+  }
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   connect();
