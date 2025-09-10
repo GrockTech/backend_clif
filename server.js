@@ -94,8 +94,8 @@ app.post("/api/login", (req, res) => {
   const { email, password } = req.body;
 
   if (
-    email === process.env.ADMIN_EMAIL &&
-    password === process.env.ADMIN_PASSWORD
+    email === process.env.REACT_APP_ADMIN_EMAIL &&
+    password === process.env.REACT_APP_ADMIN_PASSWORD
   ) {
     return res.json({ success: true, token: "some-jwt-or-session" });
   } else {
